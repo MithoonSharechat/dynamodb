@@ -38,13 +38,9 @@ async function getFruit(fruitId) {
     var dbResponse = {};
     try{
         var awsPromise = await docClient.dynamoDBClient.query(params).promise();
-           dbResponse.success = true;
-           dbResponse.message = "successfully queried data";
-           if (awsPromise.Items.length > 0 ) {
-                dbResponse.data =  awsPromise.Items[0];
-           } else {
-               dbResponse.data = {};
-           }
+        dbResponse.success = true;
+        dbResponse.message = "successfully queried data";
+        dbResponse.data = awsPromise.Items;
     } catch( err) {
         dbResponse.success = false;
         dbResponse.message = "request failed"; 
@@ -65,8 +61,8 @@ async function deleteFruit(fruitId) {
     var dbResponse = {};
     try{
         var awsPromise = await docClient.dynamoDBClient.delete(params).promise();
-           dbResponse.success = true;
-           dbResponse.message = "successfully deleted data";
+        dbResponse.success = true;
+        dbResponse.message = "successfully deleted data";
     } catch( err) {
         dbResponse.success = false;
         dbResponse.message = "request failed"; 
@@ -81,9 +77,9 @@ async function getFruits() {
     var dbResponse = {};
     try{
         var awsPromise = await docClient.dynamoDBClient.scan(params).promise();
-           dbResponse.success = true;
-           dbResponse.message = "successfully fetched all data";
-           dbResponse.data = awsPromise.Items;
+        dbResponse.success = true;
+        dbResponse.message = "successfully fetched all data";
+        dbResponse.data = awsPromise.Items;
     } catch( err) {
         dbResponse.success = false;
         dbResponse.message = "request failed"; 
