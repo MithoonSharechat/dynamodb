@@ -1,4 +1,4 @@
-var fruitsDAO = require('../DAOs/fruitsDAO');
+var fruitsDAO = require('../daos/fruitsDAO');
 
 async function saveFruit(fruit) {
     var result =  await fruitsDAO.saveFruit(fruit);

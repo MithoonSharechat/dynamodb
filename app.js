@@ -1,8 +1,8 @@
-var Controllers = require('./Controllers/fruitsController.js');
+var Controllers = require('./controllers/fruitsController.js');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var awsConfig = require('./Configs/dynamodbConfigs/config.js');
+var awsConfig = require('./configs/dynamodbConfigs/config.js');
 app.use(bodyParser.json());
 
 app.get('/getFruit/:fruitId', Controllers.getFruitController);
@@ -14,5 +14,4 @@ app.listen(8081, ()=> {
     console.log("server started listening at port 8081");
 });
 
-
-
+module.exports = app;

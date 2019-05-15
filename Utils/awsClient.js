@@ -1,7 +1,7 @@
-var aws = require('aws-sdk');
-var awsConfig = require('../Configs/dynamodbConfigs/config');
-var env = 'dev';
-//var env = 'local';
+var aws = require('../node_modules/aws-sdk');
+var awsConfig = require('../configs/dynamodbConfigs/config');
+//var env = 'dev';
+var env = 'local';
 var awsConnectionConfig = env === 'local' ? awsConfig.aws_local_config : awsConfig.aws_remote_config;
 aws.config.update(awsConnectionConfig);
 

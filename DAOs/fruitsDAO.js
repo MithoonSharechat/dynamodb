@@ -1,13 +1,14 @@
-var docClient = require('../Utils/awsClient');
-var awsConfig = require('../Configs/dynamodbConfigs/config');
-
+var docClient = require('../utils/awsClient');
+var awsConfig = require('../configs/dynamodbConfigs/config');
+  
 async function saveFruit(fruit) {
     const params = {
         TableName: awsConfig.aws_table_name,
         Item: {
             fruitId: fruit.fruitId.toString(),
             name: fruit.name
-        }
+        },
+        ConditionExpression: 'attribute_not_exists(fruitId)' // does not allow duplicate fruitId in the table
     };
     var dbResponse = {};
     try{
@@ -21,7 +22,7 @@ async function saveFruit(fruit) {
         }
     } catch( err) {
         dbResponse.success = false;
-        dbResponse.message = "request failed"; 
+        dbResponse.message = err.message;
     }
     return dbResponse;
 }
@@ -86,6 +87,7 @@ async function getFruits() {
     }
     return dbResponse;
 }
+
 
 module.exports.saveFruit = saveFruit;
 module.exports.getFruit = getFruit;
